@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/rowanhorn1412/blok-tech/issues"
   },
-  "homepage": "https://github.com/rowanhorn1412/blok-tech#readme"
+  "homepage": "https://github.com/rowanhorn1412/blok-tech#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
