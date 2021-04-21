@@ -14,6 +14,10 @@ app.get('/', (req, res) => {
     res.send('<h1>PETS</h1>')
 });
 
+app.use(function (req, res, next) {
+    res.status(404).send("<h1>nope 404..</h1>")
+});
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}!`)
 });
