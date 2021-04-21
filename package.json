@@ -1,0 +1,20 @@
+{
+  "name": "blok-tech",
+  "version": "1.0.0",
+  "description": "Repo voor blok tech",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rowanhorn1412/blok-tech.git"
+  },
+  "author": "Rowan Horn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rowanhorn1412/blok-tech/issues"
+  },
+  "homepage": "https://github.com/rowanhorn1412/blok-tech#readme"
+}
