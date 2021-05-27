@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <%- include ("partials/head.ejs") %>
+</head>
+    <body>
+    
+        <h1>Down to Date</h1>
+        <form action="login" id="login" method="POST">
+          
+            <div class="login-con-1">
+              <label for="email"><b>Email</b></label>
+              <input type="email" placeholder="email" name="email" >
+      
+              <label for="password"><b>Password</b></label>
+              <input type="password" placeholder="Password" name="password" >
+            </div>
+          
+        
+    
+        <div class="login-con-2">
+          <label>
+            <input type="checkbox" checked="checked" name="remember"> Remember me</label>
+              <button type="submit">Login</button>
+               <a href="registration"><button type="button" class="toRegister">Register</button></a>
+                <a href="forgot">Forgot password?</a>
+          
+        </div>
+      </form>
+
+    </body>
+
+
+
+</html>
