@@ -1,13 +1,20 @@
 module.exports = {
-    "env": {
-        "browser": true,
-        "es2021": true
+    rules: {
+      semi: ['error', 'always'],
+      quotes: ['error', 'double'],
+      'no-unused-vars': 0,
+      indent: [false, 'spaces', 2],
     },
-    "extends": "eslint:recommended",
-    "parserOptions": {
-        "ecmaVersion": 12,
-        "sourceType": "module"
+  
+    parserOptions: {
+      ecmaVersion: 2020,
     },
-    "rules": {
-    }
-};
+  
+    env: {
+      node: true,
+      es6: true,
+      es7: true,
+      es8: true,
+      browser: true,
+    },
+  };

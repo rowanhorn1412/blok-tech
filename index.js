@@ -15,6 +15,7 @@ let db = null;
 app
     .use(express.static('static'))
     .set('view engine', 'ejs')
+    .set('views', 'view')
     .use(bodyParser.json())
     .use(bodyParser.urlencoded({   extended: true }))
     .use(session({
