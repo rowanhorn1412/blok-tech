@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <%- include ("components/head.ejs") %>
+    <title>Pagina niet gevonden</title>
+  </head>
 
-<head>
-    <%- include ("partials/head.ejs") %>
-        <title>Overview</title>
-</head>
-
-<body class="error404">
+  <body class="error">
     <header>
-
+      <%- include ("components/header-two.ejs") %>
     </header>
-    <main>
-        <section>
-            <h1>No matches.</h1>
-            <h2>404 Error.</h2>
-            <p>We cant find the page you're looking for.</p>
-            <a href="/">Back To Swiping</a>
-        </section>
-    </main>
-</body>
-
+    <section>
+      <h2>Ooooops</h2>
+      <img src="images/icons/error.svg" alt="Warning sign" />
+      <p>
+        Sorry, the page you are trying to reach does not exist...Go back to the
+        home page.
+      </p>
+      <a href="/">Go to homepage</a>
+    </section>
+  </body>
 </html>
