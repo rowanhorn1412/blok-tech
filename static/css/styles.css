@@ -20,7 +20,7 @@
   }
   
   h3 {
-    text-align: left;
+    text-align: center;
     color: #DE5F5A;
     padding-top: 2em;
     padding-bottom: 0.5em;
@@ -40,6 +40,8 @@
     margin-left: 1em;
     list-style-type: none;
     color: white;
+    text-align: center;
+
   }
   
   

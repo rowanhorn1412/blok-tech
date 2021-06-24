@@ -2,41 +2,44 @@ const express = require('express');
 const app = express();
 const port = 8000;
 const mongo = require('mongodb')
-const bodyParser = require('body-parser');
 const session = require('express-session');
 // loads environment variables from a .env file into process.env
-require('dotenv').config();
+const dotenv = require('dotenv').config();
+
 
 let users = null;
 let db = null;
 
+console.log(process.env.TESTVAR)
 
 // Middleware
 app
     .use(express.static('static'))
     .set('view engine', 'ejs')
     .set('views', 'view')
-    .use(bodyParser.json())
-    .use(bodyParser.urlencoded({   extended: true }))
+    // .use(bodyParser.json())
+    // .use(bodyParser.urlencoded({   extended: true }))
     .use(session({
         secret: process.env.SESSION_SECRET,
         cookie: { maxAge: 60000 },
         resave: false,
-        saveUninitialized: true,
+        saveUninitialized: false,
         secure: true,
     }))
     
 
 //connection to DB
-let url = 'mongodb+srv://' + process.env.DB_USER + ':' + process.env.DB_PASS + '@users.w6r46.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+let url = 'mongodb+srv://' + process.env.DB_USER + ':' + process.env.DB_PASS + '@user.l8lxq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 mongo.MongoClient.connect(url, { useUnifiedTopology: true }, function(err, client) {
     if (err) {
+        console.log('Database is niet connected');
         throw err;
     } else if (client) {
         console.log('Connected to database');
     }
     db = client.db(process.env.DB_NAME);
-    users = db.collection("users");
+    users = db.collection(process.env.DB_NAME);
+    users.createIndex({ email: 1 }, { unique: true });
 });
 
 // home
@@ -107,13 +110,13 @@ function createAcc(req, res) {
             req.session.userId = data.email;
             req.session.userName = data.firstName;
             res.render('succes');
-            console.log(+ req.session.userId + 'created a new account');
+            console.log(+ req.session.firstName + 'created a new account');
         }
     })
 }
 // checks if user exists and logs on
 function login(req, res) {
-    users.findOne({email: req.body.email})
+    users.findOne({ email: req.body.email })
         .then(data => {
             if (data) {
                 if (data.password === req.body.password) {
@@ -136,7 +139,7 @@ function login(req, res) {
         });
 }
 
-function deleteAcc(req, res) {
+function deleteAcc(req, res) { 
     users.findOne({email: req.session.userId})
         .then(data => {
                 users.deleteOne({email: req.session.userId})
