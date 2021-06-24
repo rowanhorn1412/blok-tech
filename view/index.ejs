@@ -1,36 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <%- include ("partials/head.ejs") %>
+    <title>Sign in — down to date</title>
+  </head>
+  <body class="signin">
+    <header>
+      <%- include ("partials/header.ejs") %>
+    </header>
+    <main>
+      <h1>Welcome to Down to Date! </h1>
+      <form action="/login" id="login" method="POST">
+        <div>
+          <label for="email">Email</label>
+          <input type="email" placeholder="example@mail.com" name="email" />
 
-<head>
-   <%- include ("partials/head.ejs") %>
-</head>
-    <body>
-    
-        <h1>Down to Date</h1>
-        <form action="login" id="login" method="POST">
-          
-            <div class="login-con-1">
-              <label for="email"><b>Email</b></label>
-              <input type="email" placeholder="email" name="email" >
-      
-              <label for="password"><b>Password</b></label>
-              <input type="password" placeholder="Password" name="password" >
-            </div>
-          
-        
-    
-        <div class="login-con-2">
+          <label for="password">Password</label>
+          <input type="password" placeholder="******" name="password" />
+        </div>
+
+        <div>
           <label>
-            <input type="checkbox" checked="checked" name="remember"> Remember me</label>
-              <button type="submit">Login</button>
-               <a href="registration"><button type="button" class="toRegister">Register</button></a>
-                <a href="forgot">Forgot password?</a>
-          
+            <input type="checkbox" checked="checked" name="remember" />
+            Remember me
+          </label>
+
+          <button type="submit">Login</button>
+          <div>
+            <a href="registration">Registration</a>
+          </div>
         </div>
       </form>
-
-    </body>
-
-
-
+    </main>
+  </body>
 </html>

@@ -3,12 +3,13 @@ const app = express();
 const port = 8000;
 const mongo = require('mongodb')
 const session = require('express-session');
+const bodyParser = require('body-parser');
 // loads environment variables from a .env file into process.env
 const dotenv = require('dotenv').config();
 
+let db;
+let users;
 
-let users = null;
-let db = null;
 
 console.log(process.env.TESTVAR)
 
@@ -17,8 +18,8 @@ app
     .use(express.static('static'))
     .set('view engine', 'ejs')
     .set('views', 'view')
-    // .use(bodyParser.json())
-    // .use(bodyParser.urlencoded({   extended: true }))
+    .use(bodyParser.json())
+    .use(bodyParser.urlencoded({   extended: true }))
     .use(session({
         secret: process.env.SESSION_SECRET,
         cookie: { maxAge: 60000 },
@@ -116,21 +117,21 @@ function createAcc(req, res) {
 }
 // checks if user exists and logs on
 function login(req, res) {
-    users.findOne({ email: req.body.email })
+    users.findOne({email: req.body.email})
         .then(data => {
             if (data) {
                 if (data.password === req.body.password) {
                     req.session.loggedIN = true;
                     req.session.userId = data.email;
-                    req.session.userName = data.voornaam;
+                    req.session.userName = data.firstName;
                     res.render('succes');
                     console.log('logged in as ' + req.session.userId);
                 } else {
-                    res.render('index');
+                    res.render('login');
                     console.log('password incorrect');
                 }
             } else {
-                res.render('index');
+                res.render('login');
                 console.log('Cant find this account');
             }
         })
@@ -138,6 +139,31 @@ function login(req, res) {
             console.log(err);
         });
 }
+
+// async function login(req, res) {
+//     try
+//     users.findOne({email: req.body.email})
+//         .then(data => {
+//             if (data) {
+//                 if (data.password === req.body.password) {
+//                     req.session.loggedIN = true;
+//                     req.session.userId = data.email;
+//                     req.session.userName = data.firstName;
+//                     res.render('succes');
+//                     console.log('logged in as ' + req.session.userId);
+//                 } else {
+//                     res.render('index');
+//                     console.log('password incorrect');
+//                 }
+//             } else {
+//                 res.render('index');
+//                 console.log('Cant find this account');
+//             }
+//         })
+//         .catch(err => {
+//             console.log(err);
+//         });
+// }
 
 function deleteAcc(req, res) { 
     users.findOne({email: req.session.userId})
