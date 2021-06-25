@@ -18,8 +18,8 @@ app
     .use(express.static('static'))
     .set('view engine', 'ejs')
     .set('views', 'view')
-    .use(bodyParser.json())
-    .use(bodyParser.urlencoded({   extended: true }))
+    .use(express.urlencoded({extended: true}))
+    .use(express.json()) // To parse the incoming requests with JSON payloads
     .use(session({
         secret: process.env.SESSION_SECRET,
         cookie: { maxAge: 60000 },
@@ -140,30 +140,6 @@ function login(req, res) {
         });
 }
 
-// async function login(req, res) {
-//     try
-//     users.findOne({email: req.body.email})
-//         .then(data => {
-//             if (data) {
-//                 if (data.password === req.body.password) {
-//                     req.session.loggedIN = true;
-//                     req.session.userId = data.email;
-//                     req.session.userName = data.firstName;
-//                     res.render('succes');
-//                     console.log('logged in as ' + req.session.userId);
-//                 } else {
-//                     res.render('index');
-//                     console.log('password incorrect');
-//                 }
-//             } else {
-//                 res.render('index');
-//                 console.log('Cant find this account');
-//             }
-//         })
-//         .catch(err => {
-//             console.log(err);
-//         });
-// }
 
 function deleteAcc(req, res) { 
     users.findOne({email: req.session.userId})
@@ -178,7 +154,7 @@ function deleteAcc(req, res) {
         .catch(err => console.error(`Error: ${err}`));
 }
             
-        
+
 
 // goes to login page
 function getLogin(req, res) {

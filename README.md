@@ -91,3 +91,6 @@ If you can't connect with my database cause a MongoObjectError, feel free to con
 
 Data from the database ⬇️
 The structure of the database is shown in the images below. The first image shows the name of the database and the name of the collection. With the filter feature I'm using the 'datingUsers' database.
+
+7. Database Designe
+![database design](./static/images/db.png)
