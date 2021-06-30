@@ -222,7 +222,16 @@
     font-family: 'Poppins', Tahoma, Geneva, Verdana, sans-serif;
     outline: none;
     border: none;
+
   }
+
+  input[type=submit] {
+    font-size: 16px;
+    color: black;
+    border: 0;
+    padding: 1em;
+    border-radius: 10px;
+}
   
   /* //////////////////////////////////////////////////////////////////////////
   //////////////////////////--------------------//////////////////////////////

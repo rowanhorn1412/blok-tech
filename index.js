@@ -1,9 +1,11 @@
 const express = require('express');
+const session = require('express-session');
+const mongo = require('mongodb')
 const app = express();
 const port = 8000;
-const mongo = require('mongodb')
-const session = require('express-session');
-const bodyParser = require('body-parser');
+
+// const bodyParser = require('body-parser');
+
 // loads environment variables from a .env file into process.env
 const dotenv = require('dotenv').config();
 
@@ -43,6 +45,7 @@ mongo.MongoClient.connect(url, { useUnifiedTopology: true }, function(err, clien
     users.createIndex({ email: 1 }, { unique: true });
 });
 
+
 // home
 app.get('/', goHome);
 // registration
@@ -54,6 +57,9 @@ app.get('/login',getLogin);
 app.post('/login', login);
 // forgot
 app.get('/forgot', forgot);
+// password change
+app.get('/changePassword', passwordForm);
+app.post('/edit', passwordChange);
 // delete
 app.get('/delete', deleteAcc);
 // 404
@@ -77,6 +83,7 @@ function registration(req, res) {
 
 // going home (logged in)
 function goHome(req, res) {
+    console.log(req.session);
     if (req.session.loggedIN) {
         res.render('succes');
     }  else {
@@ -140,6 +147,47 @@ function login(req, res) {
         });
 }
 
+function passwordForm(req, res) {
+    res.render('changePassword');
+}
+
+function passwordChange(req, res) {
+    if (req.session.loggedIN) {
+        users
+            .findOne({
+                email: req.session.userId,
+            })
+            .then(data => {
+                if (data) {
+                    const query = { email: req.session.userId };
+                    // Wat wil je aanpassen
+                    const update = {
+                        '$set': {
+                            'email': req.session.userId,
+                            'password': req.body.nieuwwachtwoord,
+                        }
+                    };
+                    const options = { returnNewDocument: true };
+                    users
+                        .findOneAndUpdate(query, update, options)
+                        .then(updatedDocument => {
+                            if (updatedDocument) {
+                                req.session.loggedIN = false;
+                                res.render('index');
+                            }
+                            return updatedDocument;
+                        })
+                        .catch(err => console.error(`Gefaald om het te updaten door error: ${err}`));
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    } else {
+        res.render('index');
+        console.log('u bent niet ingelogd');
+    }
+}
 
 function deleteAcc(req, res) { 
     users.findOne({email: req.session.userId})
